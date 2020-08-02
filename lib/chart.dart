@@ -22,7 +22,7 @@ class _ChatContainState extends State<ChatContain> {
           itemBuilder: (BuildContext ctxt, int index) {
             return Card(
                 child: ListTile(
-              title: Text(reqs[index]),
+              title: Text(reqs[index].replaceAll("%20", " ")),
               subtitle: Text(sender[index]),
             ));
           }),

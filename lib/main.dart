@@ -74,15 +74,15 @@ class _MyHomePageState extends State<MyHomePage> {
       print(vall);
       print(vall.length);
       var start = (vall.indexOf("host") + 5);
-      var hos = vall.substring(start, vall.lastIndexOf("0") + 1);
-      print("\n\n\n\n${hos}\n\n\n\n\n");
+      var ho = vall.substring(start, vall.lastIndexOf("0") + 1);
+      print("\n\n\n\n${ho}\n\n\n\n\n");
 
       if (a == "/seCret") {
         a = "secret";
         text = "new valid request";
 
         reqs.add("secret");
-        sender.add(hos);
+        sender.add(ho);
 
         setState(() {});
       } else if (a == "/favicon.ico") {
@@ -99,8 +99,17 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           btnOkIcon: Icons.check_circle,
         )..show();
-        reqs.add(a.substring(1, a.length));
-        sender.add(hos);
+
+        //var sende = a.substring(1, a.length).indexOf("\$%25/") + 5;
+        print(a);
+        int st = a.indexOf("\$%25/");
+        print("st is $st");
+        //String sendarrr = a.substring(s);
+        if (st >= 0) sender.add(a.substring(st + 5, a.length));
+
+        print("sender============================/n/n 1");
+        sender.add("noone");
+        reqs.add(a.substring(1, st));
         setState(() {});
         //  return a.substring(1, a.length);
         // setState(() {});
