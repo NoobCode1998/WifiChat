@@ -3,12 +3,15 @@ import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:ser/chat.dart';
+import 'package:ser/chat1.dart';
 import 'package:ser/server.dart';
+
+import 'chart.dart';
 
 String ip = "nothing";
 void main() => runApp(Nav());
 List<String> reqs = ["first"];
+List<String> sender = ["first"];
 
 class Nav extends StatelessWidget {
   @override
@@ -65,12 +68,21 @@ class _MyHomePageState extends State<MyHomePage> {
     // #docregion listen
     await for (var request in server) {
       String a = request.uri.toString();
+
       print("var a is ${a}");
+      String vall = request.headers.toString();
+      print(vall);
+      print(vall.length);
+      var start = (vall.indexOf("host") + 5);
+      var hos = vall.substring(start, vall.lastIndexOf("0") + 1);
+      print("\n\n\n\n${hos}\n\n\n\n\n");
+
       if (a == "/seCret") {
         a = "secret";
         text = "new valid request";
 
         reqs.add("secret");
+        sender.add(hos);
 
         setState(() {});
       } else if (a == "/favicon.ico") {
@@ -88,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
           btnOkIcon: Icons.check_circle,
         )..show();
         reqs.add(a.substring(1, a.length));
+        sender.add(hos);
         setState(() {});
         //  return a.substring(1, a.length);
         // setState(() {});
@@ -128,10 +141,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               child: Column(
                 children: <Widget>[
-                  TextFormField(
-                    controller: myController,
-                    decoration:
-                        InputDecoration(labelText: 'Enter your username'),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextFormField(
+                      controller: myController,
+                      decoration:
+                          InputDecoration(labelText: 'Enter your username'),
+                    ),
                   ),
                   RaisedButton.icon(
                       onPressed: () {
@@ -170,27 +186,27 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class ChatContain extends StatefulWidget {
-  const ChatContain({
-    Key key,
-  }) : super(key: key);
+// class ChatContain extends StatefulWidget {
+//   const ChatContain({
+//     Key key,
+//   }) : super(key: key);
 
-  @override
-  _ChatContainState createState() => _ChatContainState();
-}
+//   @override
+//   _ChatContainState createState() => _ChatContainState();
+// }
 
-class _ChatContainState extends State<ChatContain> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-          itemCount: reqs.length,
-          itemBuilder: (BuildContext ctxt, int index) {
-            return Card(child: Text(reqs[index]));
-          }),
-    );
-  }
-}
+// class _ChatContainState extends State<ChatContain> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: ListView.builder(
+//           itemCount: reqs.length,
+//           itemBuilder: (BuildContext ctxt, int index) {
+//             return Card(child: Text(reqs[index]));
+//           }),
+//     );
+//   }
+// }
 
 class LastPage extends StatelessWidget {
   const LastPage({
