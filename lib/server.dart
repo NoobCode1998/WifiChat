@@ -33,11 +33,34 @@ class Server extends StatefulWidget {
 }
 
 class _ServerState extends State<Server> {
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      child: Text("Server page"),
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            controller: myController,
+            decoration: InputDecoration(labelText: 'Enter your username'),
+          ),
+          RaisedButton.icon(
+              onPressed: () {
+                ip = myController.text;
+                print("==================\n\n\nip is $ip\n\n\n===========");
+              },
+              icon: Icon(Icons.accessible),
+              label: Text("add ip"))
+        ],
+      ),
     ));
 
     // floatingActionButton: FloatingActionButton(

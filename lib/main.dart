@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:ser/chat.dart';
 import 'package:ser/server.dart';
 
+String ip = "nothing";
 void main() => runApp(Nav());
 
 class Nav extends StatelessWidget {
@@ -34,6 +35,15 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
   PageController _pageController;
 
+  final myController = TextEditingController();
+
+  @override
+  // void dispose() {
+  //   // Clean up the controller when the widget is disposed.
+  //   myController.dispose();
+  //   super.dispose();
+  // }
+
   @override
   void initState() {
     super.initState();
@@ -46,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future serverStart() async {
     // #docregion bind
     var server = await HttpServer.bind(
-      '192.168.0.100',
+      "192.168.43.229",
       4040,
     );
     // #enddocregion bind
@@ -77,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
           btnOkIcon: Icons.check_circle,
         )..show();
         reqs.add(a.substring(1, a.length));
-        return a.substring(1, a.length);
+        //  return a.substring(1, a.length);
         // setState(() {});
 
       }
@@ -99,6 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     _pageController.dispose();
+    //  super.dispose();
+    myController.dispose();
     super.dispose();
   }
 
@@ -113,9 +125,29 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() => _currentIndex = index);
           },
           children: <Widget>[
-            Server(),
+            Container(
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    controller: myController,
+                    decoration:
+                        InputDecoration(labelText: 'Enter your username'),
+                  ),
+                  RaisedButton.icon(
+                      onPressed: () {
+                        ip = myController.text;
+                        print(
+                            "==================\n\n\nip is $ip\n\n\n===========");
+                      },
+                      icon: Icon(Icons.accessible),
+                      label: Text("add ip"))
+                ],
+              ),
+            ),
+            Scaffold(
+              body: Text("Chat window"),
+            ),
             first(),
-            chat(),
             LastPage(),
           ],
         ),
