@@ -8,6 +8,7 @@ import 'package:ser/server.dart';
 
 String ip = "nothing";
 void main() => runApp(Nav());
+List<String> reqs = ["first"];
 
 class Nav extends StatelessWidget {
   @override
@@ -56,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future serverStart() async {
     // #docregion bind
     var server = await HttpServer.bind(
-      "192.168.43.229",
+      ip,
       4040,
     );
     // #enddocregion bind
@@ -71,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         reqs.add("secret");
 
-        // setState(() {});
+        setState(() {});
       } else if (a == "/favicon.ico") {
         text = "unknown token";
       } else {
@@ -87,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
           btnOkIcon: Icons.check_circle,
         )..show();
         reqs.add(a.substring(1, a.length));
+        setState(() {});
         //  return a.substring(1, a.length);
         // setState(() {});
 
@@ -103,8 +105,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     // #enddocregion listen
   }
-
-  List<String> reqs = ["first"];
 
   @override
   void dispose() {
@@ -144,9 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            Scaffold(
-              body: Text("Chat window"),
-            ),
+            ChatContain(),
             first(),
             LastPage(),
           ],
@@ -172,6 +170,28 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+class ChatContain extends StatefulWidget {
+  const ChatContain({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _ChatContainState createState() => _ChatContainState();
+}
+
+class _ChatContainState extends State<ChatContain> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView.builder(
+          itemCount: reqs.length,
+          itemBuilder: (BuildContext ctxt, int index) {
+            return Card(child: Text(reqs[index]));
+          }),
+    );
+  }
+}
+
 class LastPage extends StatelessWidget {
   const LastPage({
     Key key,
@@ -191,8 +211,6 @@ class first extends StatefulWidget {
 class _firstState extends State<first> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("First"),
-    );
+    return Scaffold(body: Text("build first page "));
   }
 }
