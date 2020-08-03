@@ -147,30 +147,8 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() => _currentIndex = index);
           },
           children: <Widget>[
-            Container(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: TextFormField(
-                      controller: myController,
-                      decoration:
-                          InputDecoration(labelText: 'Enter your username'),
-                    ),
-                  ),
-                  RaisedButton.icon(
-                      onPressed: () {
-                        ip = myController.text;
-                        print(
-                            "==================\n\n\nip is $ip\n\n\n===========");
-                      },
-                      icon: Icon(Icons.accessible),
-                      label: Text("add ip"))
-                ],
-              ),
-            ),
             ChatContain(),
-            first(),
+            Server(myController: myController),
             LastPage(),
           ],
         ),
@@ -228,14 +206,16 @@ class LastPage extends StatelessWidget {
   }
 }
 
-class first extends StatefulWidget {
+class SendMessage extends StatefulWidget {
   @override
-  _firstState createState() => _firstState();
+  _SendMessageState createState() => _SendMessageState();
 }
 
-class _firstState extends State<first> {
+class _SendMessageState extends State<SendMessage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Text("build first page "));
+    return Scaffold(
+      body: Container(child: Text("first Page")),
+    );
   }
 }
