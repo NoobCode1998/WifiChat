@@ -139,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Nav Bar")),
+      appBar: AppBar(title: Text("Wfi Chat")),
       body: SizedBox.expand(
         child: PageView(
           controller: _pageController,
@@ -161,10 +161,10 @@ class _MyHomePageState extends State<MyHomePage> {
           _pageController.jumpToPage(index);
         },
         items: <BottomNavyBarItem>[
-          BottomNavyBarItem(title: Text('Server'), icon: Icon(Icons.home)),
-          BottomNavyBarItem(title: Text('Item One'), icon: Icon(Icons.apps)),
+          BottomNavyBarItem(title: Text('Chat'), icon: Icon(Icons.home)),
+          BottomNavyBarItem(title: Text('Server'), icon: Icon(Icons.apps)),
           BottomNavyBarItem(
-              title: Text('Item One'), icon: Icon(Icons.chat_bubble)),
+              title: Text('Others'), icon: Icon(Icons.chat_bubble)),
           BottomNavyBarItem(
               title: Text('Item One'), icon: Icon(Icons.settings)),
         ],
