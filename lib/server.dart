@@ -4,6 +4,7 @@ import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/services.dart';
+import 'package:gateway/gateway.dart';
 import 'dart:io';
 import 'package:get_ip/get_ip.dart';
 import 'main.dart';
@@ -96,6 +97,13 @@ class _ServerState extends State<Server> {
 
   Future<void> initPlatformState() async {
     String ipAddress;
+
+    Gateway gt = await Gateway.info;
+    print("======================================");
+    print(gt.netmask);
+
+    gateWay = gt.toString();
+
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       ipAddress = await GetIp.ipAddress;
@@ -167,6 +175,12 @@ class _ServerState extends State<Server> {
               print("Name is : $name");
             },
             child: Text("Submit Name"),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Container(
+            child: Text("Gate Way is $gateWay"),
           )
         ],
       ),

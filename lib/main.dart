@@ -10,6 +10,7 @@ import 'chart.dart';
 
 String ip = "Nothing";
 String name = "";
+String gateWay = " notYet";
 void main() => runApp(Nav());
 List<String> reqs = ["first"];
 List<String> sender = ["first"];
@@ -156,6 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(title: Text("Wfi Chat")),
       body: SizedBox.expand(
         child: PageView(
