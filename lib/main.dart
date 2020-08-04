@@ -8,7 +8,8 @@ import 'package:ser/server.dart';
 
 import 'chart.dart';
 
-String ip = "nothing";
+String ip = "Nothing";
+String name = "";
 void main() => runApp(Nav());
 List<String> reqs = ["first"];
 List<String> sender = ["first"];
@@ -40,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   PageController _pageController;
 
   final myController = TextEditingController();
-
+  final myControllerName = TextEditingController();
   @override
   // void dispose() {
   //   // Clean up the controller when the widget is disposed.
@@ -58,6 +59,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
 // Stream stream = controller.stream;
   Future serverStart() async {
+    if (name.isEmpty || ip == "Nothing") {
+      AwesomeDialog(
+        context: context,
+        headerAnimationLoop: false,
+        dialogType: DialogType.NO_HEADER,
+        title: 'Configure First',
+        desc: 'Please configure ip and name first before starting server',
+        btnOkOnPress: () {
+          debugPrint('OnClcik');
+        },
+        btnOkIcon: Icons.check_circle,
+      )..show();
+    }
     // #docregion bind
     var server = await HttpServer.bind(
       ip,
@@ -102,22 +116,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
         //var sende = a.substring(1, a.length).indexOf("\$%25/") + 5;
         print(a);
+
         int st = a.indexOf("\$%25/");
         print("st is $st");
         //String sendarrr = a.substring(s);
-        if (st >= 0) sender.add(a.substring(st + 5, a.length));
+        if (st >= 0) {
+          sender.add(a.substring(st + 5, a.length));
 
-        print("sender============================/n/n 1");
-        sender.add("noone");
-        reqs.add(a.substring(1, st));
-        setState(() {});
+          print("sender============================/n/n 1");
+          sender.add("noone");
+          reqs.add(a.substring(1, st));
+          setState(() {});
+        }
         //  return a.substring(1, a.length);
         // setState(() {});
 
       }
       print("\n\n\n===============");
       print("server started");
-      request.response.write('Hello, world!');
+      request.response.write('Hello, from ${name}');
       print("reqs is ${reqs}");
       // var controller = new StreamController();
       //Stream onExit = controller.stream;
@@ -148,7 +165,8 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           children: <Widget>[
             ChatContain(),
-            Server(myController: myController),
+            Server(
+                myController: myController, myControllerName: myControllerName),
             LastPage(),
           ],
         ),

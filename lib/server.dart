@@ -76,12 +76,11 @@ import 'main.dart';
 // }
 
 class Server extends StatefulWidget {
-  const Server({
-    Key key,
-    @required this.myController,
-  }) : super(key: key);
+  const Server({Key key, @required this.myController, this.myControllerName})
+      : super(key: key);
 
   final TextEditingController myController;
+  final TextEditingController myControllerName;
 
   @override
   _ServerState createState() => _ServerState();
@@ -124,7 +123,7 @@ class _ServerState extends State<Server> {
             padding: const EdgeInsets.all(10.0),
             child: TextFormField(
               controller: widget.myController,
-              decoration: InputDecoration(labelText: 'Enter your username'),
+              decoration: InputDecoration(labelText: 'Enter your IP address'),
             ),
           ),
           RaisedButton.icon(
@@ -142,6 +141,33 @@ class _ServerState extends State<Server> {
             child: Text("GetIp"),
           ),
           Container(child: Text(_ip)),
+          SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            child: Text("Enter your name"),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextFormField(
+              controller: widget.myControllerName,
+              decoration:
+                  InputDecoration(labelText: 'Enter your Name for Messaging '),
+            ),
+          ),
+          RaisedButton(
+            onPressed: () {
+              name = widget.myControllerName.text;
+              print("Name is : $name");
+            },
+            child: Text("Submit Name"),
+          )
         ],
       ),
     );
