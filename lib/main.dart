@@ -5,6 +5,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:ser/chat1.dart';
 import 'package:ser/server.dart';
+import 'package:ser/userScan.dart';
 
 import 'chart.dart';
 
@@ -178,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ChatContain(),
             Server(
                 myController: myController, myControllerName: myControllerName),
-            LastPage(),
+            ScanUsers(),
           ],
         ),
       ),
@@ -199,17 +200,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
-  }
-}
-
-class LastPage extends StatelessWidget {
-  const LastPage({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(color: Colors.blue, child: Column());
   }
 }
 
