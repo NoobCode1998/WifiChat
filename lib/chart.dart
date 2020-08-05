@@ -33,11 +33,62 @@ class _ChatContainState extends State<ChatContain> {
                   })),
           new Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: new TextField(
-                decoration: new InputDecoration(hintText: "Type in here!"),
-              )),
+              child:
+                  // new TextField(
+                  //   decoration: new InputDecoration(hintText: "Type in here!"),
+                  // )
+
+                  TextChatRow()),
         ],
       ),
+    );
+  }
+}
+
+class TextChatRow extends StatefulWidget {
+  const TextChatRow({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _TextChatRowState createState() => _TextChatRowState();
+}
+
+class _TextChatRowState extends State<TextChatRow> {
+  String dropdownValue = 'One';
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        DropdownButton<String>(
+          value: dropdownValue,
+          icon: Icon(Icons.arrow_downward),
+          iconSize: 24,
+          elevation: 16,
+          style: TextStyle(color: Colors.deepPurple),
+          underline: Container(
+            height: 2,
+            color: Colors.deepPurpleAccent,
+          ),
+          onChanged: (String newValue) {
+            setState(() {
+              dropdownValue = newValue;
+            });
+          },
+          items: <String>['One', 'Two', 'Free', 'Four']
+              .map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        ),
+        Expanded(
+            child: TextField(
+                decoration: new InputDecoration(hintText: "Type in here!"))),
+      ],
     );
   }
 }
