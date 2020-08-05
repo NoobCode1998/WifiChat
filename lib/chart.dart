@@ -17,15 +17,27 @@ class _ChatContainState extends State<ChatContain> {
   Widget build(BuildContext context) {
     // var reqs;
     return Scaffold(
-      body: ListView.builder(
-          itemCount: reqs.length,
-          itemBuilder: (BuildContext ctxt, int index) {
-            return Card(
-                child: ListTile(
-              title: Text(reqs[index].replaceAll("%20", " ")),
-              subtitle: Text(sender[index]),
-            ));
-          }),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          new Expanded(
+              child: ListView.builder(
+                  itemCount: reqs.length - 1,
+                  itemBuilder: (BuildContext ctxt, int index) {
+                    return Card(
+                        child: ListTile(
+                      title: Text(reqs[index + 1].replaceAll("%20", " ")),
+                      subtitle: Text(sender[index + 1]),
+                    ));
+                  })),
+          new Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: new TextField(
+                decoration: new InputDecoration(hintText: "Type in here!"),
+              )),
+        ],
+      ),
     );
   }
 }

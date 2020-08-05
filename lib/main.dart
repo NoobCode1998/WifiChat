@@ -158,7 +158,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: AppBar(title: Text("Wfi Chat")),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Wfi Chat",
+          textAlign: TextAlign.center,
+        ),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.play_arrow), onPressed: serverStart)
+        ],
+      ),
       body: SizedBox.expand(
         child: PageView(
           controller: _pageController,
@@ -173,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: serverStart),
+      // floatingActionButton: FloatingActionButton(onPressed: serverStart),
       bottomNavigationBar: BottomNavyBar(
         selectedIndex: _currentIndex,
         onItemSelected: (index) {
@@ -192,28 +201,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-// class ChatContain extends StatefulWidget {
-//   const ChatContain({
-//     Key key,
-//   }) : super(key: key);
-
-//   @override
-//   _ChatContainState createState() => _ChatContainState();
-// }
-
-// class _ChatContainState extends State<ChatContain> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: ListView.builder(
-//           itemCount: reqs.length,
-//           itemBuilder: (BuildContext ctxt, int index) {
-//             return Card(child: Text(reqs[index]));
-//           }),
-//     );
-//   }
-// }
 
 class LastPage extends StatelessWidget {
   const LastPage({
